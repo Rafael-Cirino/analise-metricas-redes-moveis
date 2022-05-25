@@ -12,7 +12,7 @@ def dict_data_bus(name_json="data", raw="bus_9"):
     linhas = arq.readlines()
 
     list_data = []
-    len_cols = len(linhas[0])
+    len_cols = len(linhas[0].split("\t")) - 1
     for linha in linhas:
         # Separa a linha em colunas
         linha = linha.split("\t")
@@ -27,16 +27,36 @@ def dict_data_bus(name_json="data", raw="bus_9"):
 
     # Montar dicionário
     dict_data = {}
+    dict_data["keys"] = list_data[0]
     for i, col in enumerate(list_data[0]):
         list_aux = []
         for linha in list_data[1:]:
             list_aux.append(linha[i])
 
-        dict_data[col] = [list_aux]
+        dict_data[col] = list_aux
+    
+    list_aux = []
+    t0 = time_to_sec(dict_data[dict_data["keys"][0]][0])
+    for t in dict_data[dict_data["keys"][0]]:
+        list_aux.append(time_to_sec(t) - t0)
+    
+    dict_data["t_norm"] = list_aux
 
     # Salva os dados em um json
     with open(PATH_JSON + name_json + ".json", "w") as j_file:
         json.dump(dict_data, j_file)
+    
+    return dict_data
+
+def time_to_sec(list_timestamp):
+    list_time = list_timestamp.split("_")[1].split(".")
+
+    print(list_time)
+    time_sec = int(list_time[0]) * 3600
+    time_sec += int(list_time[1]) * 60
+    time_sec += int(list_time[2])
+
+    return time_sec
 
 if __name__ == "__main__":
     dict_data_bus()
