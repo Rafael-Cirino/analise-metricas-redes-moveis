@@ -51,7 +51,6 @@ def dict_data_bus(name_json="data", raw="bus_9"):
 def time_to_sec(list_timestamp):
     list_time = list_timestamp.split("_")[1].split(".")
 
-    print(list_time)
     time_sec = int(list_time[0]) * 3600
     time_sec += int(list_time[1]) * 60
     time_sec += int(list_time[2])
