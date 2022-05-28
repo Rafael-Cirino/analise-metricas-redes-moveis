@@ -7,6 +7,7 @@ load_dotenv()
 PATH_RAW = os.getenv("PATH_RAW")
 PATH_JSON = os.getenv("PATH_JSON")
 
+
 def dict_data_bus(name_json="data", raw="bus_9"):
     arq = open(PATH_RAW + raw + ".txt")
     linhas = arq.readlines()
@@ -18,6 +19,11 @@ def dict_data_bus(name_json="data", raw="bus_9"):
         linha = linha.split("\t")
         if "\n" in linha:
             linha.remove("\n")
+
+        # Converter as str para float
+        for i, x in enumerate(linha):
+            if x.replace(".", "", 1).replace("-", "", 1).isdigit():
+                    linha[i] = float(x)
 
         # Normaliza linha em relação as colunas
         for j in range(len(linha), len_cols):
@@ -34,19 +40,20 @@ def dict_data_bus(name_json="data", raw="bus_9"):
             list_aux.append(linha[i])
 
         dict_data[col] = list_aux
-    
+
     list_aux = []
     t0 = time_to_sec(dict_data[dict_data["keys"][0]][0])
     for t in dict_data[dict_data["keys"][0]]:
         list_aux.append(time_to_sec(t) - t0)
-    
+
     dict_data["t_norm"] = list_aux
 
     # Salva os dados em um json
     with open(PATH_JSON + name_json + ".json", "w") as j_file:
         json.dump(dict_data, j_file)
-    
+
     return dict_data
+
 
 def time_to_sec(list_timestamp):
     list_time = list_timestamp.split("_")[1].split(".")
@@ -56,6 +63,7 @@ def time_to_sec(list_timestamp):
     time_sec += int(list_time[2])
 
     return time_sec
+
 
 if __name__ == "__main__":
     dict_data_bus()
