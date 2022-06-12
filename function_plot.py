@@ -20,6 +20,9 @@ def plot_data(data, x, y1, points=False, y2=False, title_text="", name_save=Fals
         plt.plot(data[x], data[y1], label=y1, c="k")
         if points:
             plot_points(data[x], data[y1], data[points], plt)
+        
+        plt.xlabel(x, color="k", fontsize=12)
+        plt.ylabel(y1, color="k", fontsize=12)
 
         plt.legend(loc=1)
     elif y2:
@@ -27,20 +30,25 @@ def plot_data(data, x, y1, points=False, y2=False, title_text="", name_save=Fals
 
         ax.plot(data[x], data[y1], c="k")
         ax.set_ylabel(y1, color="k", fontsize=12)
+        ax.set_xlabel(x, color="k", fontsize=12)
 
         ax2 = ax.twinx()
         ax2.plot(data[x], data[y2], c="b")
-        ax2.set_ylabel(y2, color="k", fontsize=12)
+        ax2.set_ylabel(y2, color="b", fontsize=12)
 
         if points:
             plot_points(data[x], data[y1], data[points], ax)
 
         ax.legend(loc=1)
+    
+    if not (title_text):
+        title_text = f"{x} x {(y1 + ' x ' + y2) if y2 else y1}"
     plt.title(title_text)
 
     if not (name_save):
         name_save = f"{x} x {(y1 + ' x ' + y2) if y2 else y1}"
 
+    plt.figure(figsize=(8, 6))
     plt.savefig("Data/charts/" + name_save + ".png")
 
     plt.show()
