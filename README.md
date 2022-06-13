@@ -7,11 +7,9 @@ Com o aplicativio G-NetTrack Lite podemos obter algumas informações referente 
 Tabela de conteúdos
 =================
 <!--ts-->
-   * [Tabela de Conteudo](#tabela-de-conteudo)
    * [Requirements](#requirements)
    * [Como usar](#como-usar)
    * [Exemplo](#exemplo)
-   * [Tecnologias](#tecnologias)
 <!--te-->
 
 # Requirements
@@ -65,7 +63,6 @@ if __name__ == "__main__":
     <img src="Image/plot1.png"
          alt="plot1"
         >
-    <figcaption>Gráfico exemplo 1</figcaption>
 </figure>
 
 Adicionando mais um dado ao eixo y
@@ -81,5 +78,4 @@ if __name__ == "__main__":
     <img src="Image/plot2.png"
          alt="plot2"
         >
-    <figcaption>Gráfico exemplo 2</figcaption>
 </figure>
