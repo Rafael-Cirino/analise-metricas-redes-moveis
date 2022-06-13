@@ -50,6 +50,10 @@ plot_data(data, x, y1, points=False, y2=False, title_text="", name_save=False):
 
 # Exemplo
 
+OBS: t_norm: é o timestamp normalizado, considerando a primeiro como zero e os próximos como a diferença em relação a ele, em segundos.
+
+No primeiro exemplo, temos a intensidade do sinal em relação ao tipo de rede 4G ou 5G.
+
 ```
 if __name__ == "__main__":
     dict_data = dict_data_bus()
@@ -62,4 +66,20 @@ if __name__ == "__main__":
          alt="plot1"
         >
     <figcaption>Gráfico exemplo 1</figcaption>
+</figure>
+
+Adicionando mais um dado ao eixo y
+
+```
+if __name__ == "__main__":
+    dict_data = dict_data_bus()
+
+    plot_data(dict_data, "t_norm", "Level", y2="Speed", points="NetworkTech")
+```
+
+<figure>
+    <img src="Image/plot2.png"
+         alt="plot2"
+        >
+    <figcaption>Gráfico exemplo 2</figcaption>
 </figure>
